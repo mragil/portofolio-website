@@ -1,5 +1,5 @@
 var typeText = document.querySelector("#type-text");
-var textToBeTyped = "I'm a fullstack web developer.";
+var textToBeTyped = "I'm a fullstack engineer.";
 var index = 0,
   isAdding = true;
 
