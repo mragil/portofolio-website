@@ -480,8 +480,11 @@ a {
 .card-content {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 100%;
+}
+
+.card-buttons {
+  margin-top: auto;
 }
 
 .card-image {
