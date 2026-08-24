@@ -213,10 +213,10 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   font-size: 2rem;
   font-weight: 300;
-  padding: 5em;
+  padding: 5em 10em 5em 6em;
   min-height: calc(100vh - 80px);
   background-color: var(--bg-secondary);
   color: var(--text-primary);
@@ -224,61 +224,15 @@ a {
   transform: translateY(-20px);
   opacity: 0;
   transition: background-color 0.3s ease, color 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-}
-
-/* Soft accent glow behind the hero content */
-.hero-glow {
-  position: absolute;
-  width: 640px;
-  height: 640px;
-  max-width: 120vw;
-  max-height: 120vw;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--accent-color) 22%, transparent) 0%,
-    transparent 65%
-  );
-  filter: blur(10px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Subtle blueprint grid backdrop */
-.hero-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(
-      to right,
-      color-mix(in srgb, var(--text-primary) 5%, transparent) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--text-primary) 5%, transparent) 1px,
-      transparent 1px
-    );
-  background-size: 44px 44px;
-  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-#home > *:not(.hero-glow):not(.hero-grid) {
-  position: relative;
-  z-index: 1;
 }
 
 .hero-eyebrow {
-  margin: 0 0 0.5em;
+  margin: 0 0 1em;
   font-family: "Source Code Pro", monospace;
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  letter-spacing: 0.06em;
+  font-weight: 300;
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--accent-color);
   animation: home-load 400ms ease-in calc(var(--home-load-delay) + 200ms)
     forwards;
@@ -288,17 +242,10 @@ a {
 
 .hero-name {
   margin: 0;
-  font-weight: 900;
-  font-size: clamp(2.8rem, 8vw, 5.5rem);
-  line-height: 1.15;
-  background: linear-gradient(
-    100deg,
-    var(--text-primary) 40%,
-    var(--accent-color)
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  font-size: clamp(2.6rem, 7vw, 4.8rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
   animation: home-load 400ms ease-in calc(var(--home-load-delay) + 350ms)
     forwards;
@@ -307,11 +254,11 @@ a {
 }
 
 .hero-role {
-  margin: 0.75em 0 0;
+  margin: 0.9em 0 0;
   min-height: 1.6em;
   font-family: "Source Code Pro", monospace;
   font-weight: 300;
-  font-size: clamp(1.2rem, 3.5vw, 1.9rem);
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
   color: var(--text-secondary);
   animation: home-load 400ms ease-in calc(var(--home-load-delay) + 500ms)
     forwards;
@@ -321,10 +268,9 @@ a {
 
 .hero-actions {
   display: flex;
-  gap: 1em;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 2em;
+  align-items: center;
+  gap: 2.5em;
+  margin-top: 2.5em;
   /* was 3200ms — no longer waits for the typing loop */
   animation: home-load 400ms ease-in calc(var(--home-load-delay) + 650ms)
     forwards;
@@ -332,56 +278,77 @@ a {
   opacity: 0;
 }
 
-.button-ghost {
-  background-color: transparent;
-  border-color: var(--accent-color);
-  color: var(--accent-color);
+/* Solid, quiet primary button — one accent fill, no effects */
+.button-solid {
+  display: inline-block;
+  padding: 0.55em 1.5em;
+  background-color: var(--accent-color);
+  color: #ffffff;
+  border-radius: 4px;
+  font-size: 0.7em;
+  font-family: "Source Code Pro", monospace;
+  letter-spacing: 0.03em;
+  transition: opacity 0.2s ease;
 }
 
-.button-ghost:hover {
-  box-shadow: 0 4px var(--accent-color);
-  background-color: color-mix(in srgb, var(--accent-color) 12%, transparent);
+.button-solid:hover {
+  opacity: 0.85;
+}
+
+.button-solid:active {
+  transform: translateY(2px);
+}
+
+.link-quiet {
+  font-size: 0.7em;
+  font-family: "Source Code Pro", monospace;
+  color: var(--text-secondary);
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.link-quiet:hover {
+  color: var(--text-primary);
+  border-bottom-color: var(--text-primary);
 }
 
 .scroll-indicator {
-  margin-top: 3.5em;
+  position: absolute;
+  bottom: 2em;
+  left: 50%;
+  translate: -50% 0;
   color: var(--text-secondary);
+  font-size: 1.3rem;
   animation: scroll-hint 1.8s ease-in-out infinite,
     home-load 400ms ease-in calc(var(--home-load-delay) + 800ms) forwards;
   transform: translateY(-20px);
-  opacity: 0;
+  rotate: 180deg;
 }
 
 .scroll-indicator:hover {
   color: var(--accent-color);
 }
 
+@keyframes scroll-hint {
+  0%,
+  100% {
+    translate: -50% 0;
+  }
+  50% {
+    translate: -50% 6px;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   #home {
-    padding: 4em 1.5em;
+    padding: 3em 2em;
     min-height: calc(100vh - 62px);
   }
 
   .hero-actions {
     flex-direction: column;
-    align-items: stretch;
-    width: min(320px, 100%);
-  }
-}
-
-.scroll-arrow {
-  font-size: 1.6rem;
-  display: inline-block;
-  transform: rotate(180deg); /* caret points down */
-}
-
-@keyframes scroll-hint {
-  0%,
-  100% {
-    translate: 0 0;
-  }
-  50% {
-    translate: 0 8px;
+    align-items: flex-start;
+    gap: 1.5em;
   }
 }
 
