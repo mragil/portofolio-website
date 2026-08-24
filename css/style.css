@@ -11,6 +11,9 @@
   --card-shadow: 3px 4px 5px #b6b6b6;
   --card-shadow-inset: inset 2px 2px 3px rgba(255, 255, 255, 0.5);
   --accent-color: #4fa283;
+  /* Accent darkened for text/solid-fill use — passes 4.5:1 on light surfaces */
+  --accent-text: #2f7a61;
+  --accent-solid-contrast: #ffffff;
   --nav-mobile-bg: black;
   --nav-mobile-text: white;
   --corner-line-color: black;
@@ -26,6 +29,9 @@
   --card-shadow: 3px 4px 8px rgba(0, 0, 0, 0.6);
   --card-shadow-inset: inset 0 0 0 1px #30363d;
   --accent-color: #58a6ff;
+  /* Dark accent is bright enough for text; its solid fill needs dark text */
+  --accent-text: #58a6ff;
+  --accent-solid-contrast: #0d1117;
   --nav-mobile-bg: #161b22;
   --nav-mobile-text: #e6edf3;
   --corner-line-color: #58a6ff;
@@ -216,7 +222,7 @@ a {
   align-items: flex-start;
   font-size: 2rem;
   font-weight: 300;
-  padding: 5em 10em 5em 6em;
+  padding: 8rem 6rem;
   min-height: calc(100vh - 80px);
   background-color: var(--bg-secondary);
   color: var(--text-primary);
@@ -224,16 +230,17 @@ a {
   transform: translateY(-20px);
   opacity: 0;
   transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
 }
 
 .hero-eyebrow {
   margin: 0 0 1em;
   font-family: "Source Code Pro", monospace;
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(0.9rem, 2vw, 1.05rem);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent-color);
+  color: var(--accent-text);
   animation: home-load 400ms ease-in calc(var(--home-load-delay) + 200ms)
     forwards;
   transform: translateY(-20px);
@@ -257,7 +264,7 @@ a {
   margin: 0.9em 0 0;
   min-height: 1.6em;
   font-family: "Source Code Pro", monospace;
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(1.1rem, 3vw, 1.6rem);
   color: var(--text-secondary);
   animation: home-load 400ms ease-in calc(var(--home-load-delay) + 500ms)
@@ -283,12 +290,13 @@ a {
   display: inline-block;
   padding: 0.55em 1.5em;
   background-color: var(--accent-color);
-  color: #ffffff;
+  color: var(--accent-solid-contrast);
   border-radius: 4px;
   font-size: 0.7em;
   font-family: "Source Code Pro", monospace;
+  font-weight: 400;
   letter-spacing: 0.03em;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.15s ease;
 }
 
 .button-solid:hover {
@@ -296,12 +304,13 @@ a {
 }
 
 .button-solid:active {
-  transform: translateY(2px);
+  transform: scale(0.96);
 }
 
 .link-quiet {
   font-size: 0.7em;
   font-family: "Source Code Pro", monospace;
+  font-weight: 400;
   color: var(--text-secondary);
   border-bottom: 1px solid transparent;
   transition: color 0.2s ease, border-color 0.2s ease;
@@ -314,11 +323,13 @@ a {
 
 .scroll-indicator {
   position: absolute;
-  bottom: 2em;
+  bottom: 1em;
   left: 50%;
   translate: -50% 0;
+  padding: 0.75em;
   color: var(--text-secondary);
   font-size: 1.3rem;
+  line-height: 1;
   animation: scroll-hint 1.8s ease-in-out infinite,
     home-load 400ms ease-in calc(var(--home-load-delay) + 800ms) forwards;
   transform: translateY(-20px);
@@ -350,28 +361,6 @@ a {
     align-items: flex-start;
     gap: 1.5em;
   }
-}
-
-.button-view {
-  display: inline-block;
-  padding: 0.5em 2em;
-  border: 0.1em solid var(--text-primary);
-  border-radius: 0.12em;
-  box-sizing: border-box;
-  color: var(--text-primary);
-  background-color: var(--bg-primary);
-  text-align: center;
-  transition: 0.3s ease;
-}
-
-.button-view:hover {
-  box-shadow: 0 4px var(--accent-color);
-  transform: translateY(-3px);
-}
-
-.button-view:active {
-  box-shadow: 0 5px 5px rgba(184, 184, 255, 0.1);
-  transform: translateY(4px);
 }
 
 #type-text::after {
@@ -654,12 +643,12 @@ a {
 }
 
 .card-title {
-  font-weight: 100;
+  font-weight: 700;
 }
 
 .card-description {
   font-weight: 400;
-  text-align: justify;
+  text-align: start;
 }
 
 .card-btn {
@@ -767,10 +756,13 @@ input:checked + .slider .moon {
 
 .nav-link:focus-visible,
 .nav-logo:focus-visible,
+.button-solid:focus-visible,
+.link-quiet:focus-visible,
+.scroll-indicator:focus-visible,
 .button-view:focus-visible,
 .card-btn:focus-visible,
 .fa:focus-visible {
-  outline: 2px solid var(--accent-color);
+  outline: 2px solid var(--accent-text);
   outline-offset: 3px;
 }
 
